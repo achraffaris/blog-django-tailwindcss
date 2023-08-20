@@ -2,7 +2,7 @@
 
 {% block metadata %}
 
-     {% include 'components/metadata.html' with title="Manage Articles" %}
+     {% include 'components/metadata.html' with title="Add Article" %}
 
 {% endblock metadata %}
 
@@ -22,11 +22,7 @@
                <div>
                  <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
                    Articles
-                 </h2>
-                 <p class="text-sm text-gray-600 dark:text-gray-400">
-                   Add articles, edit and more.
-                 </p>
-               </div>
+                  </div>
    
                <div>
                  <div class="inline-flex gap-x-2">
@@ -34,7 +30,7 @@
                      Manage Categories
                    </a>
    
-                   <a class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-emerald-500 text-white hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" href="{%  %}">
+                   <a href="{% url 'add_article' %}" class="py-2 px-3 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-emerald-500 text-white hover:bg-emerald-600 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" href="#">
                      <svg class="w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                        <path d="M2.63452 7.50001L13.6345 7.5M8.13452 13V2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
                      </svg>
@@ -48,7 +44,9 @@
              <!-- Table -->
              <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
               {% if not articles %}
+                <div class="py-24">
                   {% include 'components/nodata.html' %}
+                </div>
               {% else %} 
               <thead class="bg-gray-50 dark:bg-slate-800">
                  <tr>
@@ -67,14 +65,6 @@
                        </span>
                      </div>
                    </th>
-   
-                   <th scope="col" class="px-6 py-3 text-left">
-                     <div class="flex items-center gap-x-2">
-                       <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
-                         Status
-                       </span>
-                     </div>
-                   </th>
                    <th scope="col" class="px-6 py-3 text-left">
                      <div class="flex items-center gap-x-2">
                        <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
@@ -90,13 +80,15 @@
                <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
                 {% for article in articles %}
                  <tr>
-                   <td class="h-px w-px whitespace-nowrap">
+                   <td class="h-px rmw-px whitespace-nowrap">
                      <div class="px-6 py-3">
                        <div class="flex items-center gap-x-3">
                          <img class="inline-block h-[2.375rem] w-[2.375rem] rounded-full" src="{{article.image.url}}" alt="Image Description">
                          <div class="grow">
-                           <span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{article.title}}</span>
-                           <span class="block text-sm text-gray-500">{{article.subtitle}}</span>
+                           <span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">
+                            {{article.title|truncatewords:12}}
+                          </span>
+                           <span class="block text-sm text-gray-500">{{article.subtitle|truncatewords:5}}</span>
                          </div>
                        </div>
                      </div>
@@ -104,16 +96,6 @@
                    <td class="h-px w-72 whitespace-nowrap">
                      <div class="px-6 py-3">
                        <span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{article.category.name}}</span>
-                     </div>
-                   </td>
-                   <td class="h-px w-px whitespace-nowrap">
-                     <div class="px-6 py-3">
-                       <span class="inline-flex items-center gap-1.5 py-0.5 px-2 rounded-full text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">
-                         <svg class="w-2.5 h-2.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-                           <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
-                         </svg>
-                         Active
-                       </span>
                      </div>
                    </td>
                    <td class="h-px w-px whitespace-nowrap">
@@ -136,15 +118,12 @@
                             <a class="flex items-center gap-x-3 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-emerald-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="{% url 'article_detail' article.slug %}">
                               View 
                             </a>
-                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-emerald-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
+                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-emerald-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="{% url 'update_article' article.pk %}">
                               Edit
-                            </a>
-                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-md text-sm text-gray-800 hover:bg-gray-100 focus:ring-2 focus:ring-emerald-500 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-gray-300" href="#">
-                              Publish
                             </a>
                           </div>
                           <div class="py-2 first:pt-0 last:pb-0">
-                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-md text-sm text-red-600 hover:bg-gray-100 focus:ring-2 focus:ring-emerald-500 dark:text-red-500 dark:hover:bg-gray-700" href="#">
+                            <a class="flex items-center gap-x-3 py-2 px-3 rounded-md text-sm text-red-600 hover:bg-gray-100 focus:ring-2 focus:ring-emerald-500 dark:text-red-500 dark:hover:bg-gray-700" href="{% url 'delete_article' article.pk %}">
                               Delete
                             </a>
                           </div>

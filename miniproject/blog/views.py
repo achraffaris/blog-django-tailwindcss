@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.views import generic
 from .models import Blog, Category
 from django.shortcuts import get_object_or_404
+from .forms import BlogForm, CategoryForm
+from django.urls import reverse_lazy
 
 class BlogListView(generic.ListView):
     model = Blog
@@ -25,6 +27,8 @@ class BlogDetailView(generic.DetailView):
     model = Blog
     template_name = 'blog/detail.html'
     context_object_name = 'article'
+    
+    
 
 class CategoryListView(generic.TemplateView):
     template_name = 'category/manage/list.html'
@@ -37,4 +41,18 @@ class ManageBlogList(generic.ListView):
 
 class AddBlogView(generic.CreateView):
     model = Blog
+    form_class = BlogForm
+    success_url = reverse_lazy('manage_blog_list')
     template_name = 'blog/manage/create.html'
+
+class UpdateBlogView(generic.UpdateView):
+    model = Blog
+    form_class = BlogForm
+    success_url = reverse_lazy('manage_blog_list')
+    template_name = 'blog/manage/update.html'
+
+class DeleteBlogView(generic.DeleteView):
+    model = Blog
+    template_name = 'blog/manage/delete.html'
+    context_object_name = 'article'
+    success_url = reverse_lazy('manage_blog_list')
