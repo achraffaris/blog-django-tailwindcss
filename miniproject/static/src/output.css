@@ -715,6 +715,14 @@ html {
   margin-top: 1.75rem;
 }
 
+.mb-8 {
+  margin-bottom: 2rem;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
 .block {
   display: block;
 }
@@ -1318,6 +1326,11 @@ html {
 .px-8 {
   padding-left: 2rem;
   padding-right: 2rem;
+}
+
+.py-6 {
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 
 .pb-12 {

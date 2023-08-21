@@ -3,11 +3,14 @@ from django.utils.text import slugify
 from django_quill.fields import QuillField
 from django.utils.crypto import get_random_string
 
+
 class Category(models.Model):
     name = models.CharField(max_length=150)
     description = models.CharField(max_length=300)
+
     def __str__(self):
         return self.name
+
 
 class Blog(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
@@ -17,8 +20,7 @@ class Blog(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='articles/')
     slug = models.SlugField(max_length=150, unique=True, blank=True, null=True)
-    published = models.BooleanField(default=True)
-    
+
     class Meta:
         ordering = ['-created_at']
 
@@ -29,5 +31,3 @@ class Blog(models.Model):
 
     def __str__(self):
         return self.title
-    
-    
