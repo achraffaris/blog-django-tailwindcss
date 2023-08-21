@@ -58,16 +58,33 @@
     <div>
       <!-- Grid -->
       {% if form.errors %}
-        <div class="invalid-feedback">
-          {% for error in form.errors %}
-            {{ error }}
-          {% endfor %}
+      <div class="bg-red-50 border border-red-200 rounded-md p-4 my-2.5" role="alert">
+        <div class="flex ">
+          <div class="ml-4">
+            <h3 class="text-sm text-red-800 font-semibold">
+              A problem has been occurred while submitting your data.
+            </h3>
+            <div class="mt-2 text-sm text-red-700">
+              
+            
+          
+              <ul class="list-disc space-y-1 pl-5">
+                {% for error in form.errors %}
+                <li>
+                  Please check: {{ error }}
+                </li>
+                {% endfor %}
+              </ul>
+              
+            </div>
+          </div>
         </div>
+      </div>
       {% endif %}
       <div class="grid sm:grid-cols-12 gap-2 sm:gap-6">
         <div class="sm:col-span-3">
           <div class="inline-block">
-            <label for="af-account-phone" class="inline-block text-sm text-gray-800 mt-2.5 dark:text-gray-200">
+            <label class="inline-block text-sm text-gray-800 mt-2.5 dark:text-gray-200">
               Category
             </label>
           </div>
@@ -76,16 +93,16 @@
 
         <div class="sm:col-span-9">
           <div class="sm:flex">
-            {% render_field form.category class="py-2 px-3 pr-9 block w-full sm:w-auto border-gray-200 shadow-sm -mt-px -ml-px first:rounded-t-lg last:rounded-b-lg sm:first:rounded-l-lg sm:mt-0 sm:first:ml-0 sm:first:rounded-tr-none sm:last:rounded-bl-none sm:last:rounded-r-lg text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" %}
+            {% render_field form.category class="py-2 px-3 pr-9 block w-full sm:w-auto border-gray-200 shadow-sm -mt-px -ml-px rounded-lg sm:mt-0 sm:first:ml-0 text-sm relative focus:z-10 focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400" %}
           </div>
 
           <p class="mt-3">
-            <a class="inline-flex items-center gap-x-1.5 text-sm text-blue-600 decoration-2 hover:underline font-medium" href="../docs/index.html">
+            <a class="inline-flex items-center gap-x-1.5 text-sm text-blue-600 decoration-2 hover:underline font-medium" href="{% url 'add_category' %}">
               <svg class="w-3.5 h-3.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
                 <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
                 <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"/>
               </svg>
-              Edit / Add Category
+              Add Category
             </a>
           </p>
         </div>

@@ -56,3 +56,24 @@ class DeleteBlogView(generic.DeleteView):
     template_name = 'blog/manage/delete.html'
     context_object_name = 'article'
     success_url = reverse_lazy('manage_blog_list')
+
+class ManageCategoryList(generic.TemplateView):
+    template_name = 'category/manage/list.html'
+
+class AddCategoryView(generic.CreateView):
+    model = Category
+    form_class = CategoryForm
+    success_url = reverse_lazy('manage_category_list')
+    template_name = 'category/manage/create.html'
+
+class UpdateCategoryView(generic.UpdateView):
+    model = Category
+    form_class = CategoryForm
+    success_url = reverse_lazy('manage_category_list')
+    template_name = 'category/manage/update.html'
+
+class DeleteCategoryView(generic.DeleteView):
+    model = Category
+    template_name = 'category/manage/delete.html'
+    context_object_name = 'category'
+    success_url = reverse_lazy('manage_category_list')
