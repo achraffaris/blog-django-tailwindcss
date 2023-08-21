@@ -5,6 +5,11 @@
 {% endblock metadata %}
 {% block styles %}
   {% include "django_quill/media.html" %}
+  <style>
+    .ql-editor{
+      min-height:400px;
+    }
+  </style>
 {% endblock styles %}
 {% block content %}
   <!-- Table Section -->
