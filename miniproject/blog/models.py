@@ -4,9 +4,15 @@ from django_quill.fields import QuillField
 from django.utils.crypto import get_random_string
 from cloudinary.models import CloudinaryField
 
+
 class Category(models.Model):
     name = models.CharField(max_length=150)
     description = models.CharField(max_length=300)
+    slug = models.SlugField(max_length=150, unique=True, blank=True, null=True)
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Category, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name

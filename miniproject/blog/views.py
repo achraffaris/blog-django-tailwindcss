@@ -15,7 +15,7 @@ class BlogListView(generic.ListView):
     def get_queryset(self):
         category_name = self.kwargs.get('category_name')
         if category_name:
-            category = get_object_or_404(Category, name=category_name)
+            category = get_object_or_404(Category, slug=category_name)
             return Blog.objects.filter(category=category)
         return Blog.objects.all()
 
@@ -86,3 +86,17 @@ class DeleteCategoryView(generic.DeleteView):
     template_name = 'category/manage/delete.html'
     context_object_name = 'category'
     success_url = reverse_lazy('manage_category_list')
+
+def error_404(request, exception):
+    context = {
+        'error': '404',
+        'error_message': 'Page not found'
+    }
+    return render(request, 'error_page.html', status=404, context=context)
+
+def error_500(request):
+    context = {
+        'error': '500',
+        'error_message': 'Internal server error'
+    }
+    return render(request, 'error_page.html', status=500, context=context)

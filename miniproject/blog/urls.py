@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("", views.BlogListView.as_view(), name="home"),
@@ -19,6 +21,9 @@ urlpatterns = [
          views.UpdateCategoryView.as_view(), name="update_category"),
     path("manage/categories/delete/<int:pk>/",
          views.DeleteCategoryView.as_view(), name="delete_category"),
-    path("<str:category_name>/", views.BlogListView.as_view(),
+    path("<slug:category_name>/", views.BlogListView.as_view(),
          name="category_detail_list"),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
