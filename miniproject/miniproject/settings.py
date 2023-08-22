@@ -22,6 +22,8 @@ DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
 ALLOWED_HOSTS = []
 
+if not DEBUG:
+    ALLOWED_HOSTS.extend(os.getenv('ALLOWED_HOSTS').split(','))
 
 # Application definition
 
