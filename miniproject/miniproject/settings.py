@@ -76,7 +76,7 @@ if os.getenv('USE_S3') == 'True':
             "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
         },
         "staticfiles": {
-            "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+            "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
         },
     }
 
