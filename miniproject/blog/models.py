@@ -2,7 +2,7 @@ from django.db import models
 from django.utils.text import slugify
 from django_quill.fields import QuillField
 from django.utils.crypto import get_random_string
-
+from cloudinary.models import CloudinaryField
 
 class Category(models.Model):
     name = models.CharField(max_length=150)
@@ -18,7 +18,7 @@ class Blog(models.Model):
     subtitle = models.CharField(max_length=200, blank=True)
     content = QuillField()
     created_at = models.DateTimeField(auto_now_add=True)
-    image = models.ImageField(upload_to='articles/')
+    image = CloudinaryField('articles')
     slug = models.SlugField(max_length=150, unique=True, blank=True, null=True)
 
     class Meta:

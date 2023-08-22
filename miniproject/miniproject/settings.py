@@ -1,6 +1,9 @@
 from pathlib import Path
 import os
 from dotenv import load_dotenv
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # Load env variables from .env
 
@@ -37,6 +40,7 @@ INSTALLED_APPS = [
     'blog',
     'widget_tweaks',
     'django_quill',
+    'cloudinary'
 ]
 
 MIDDLEWARE = [
@@ -72,9 +76,6 @@ WSGI_APPLICATION = "miniproject.wsgi.application"
 
 if os.getenv('USE_S3') == 'True':
     STORAGES = {
-        "default": {
-            "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-        },
         "staticfiles": {
             "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
         },
@@ -152,6 +153,8 @@ AWS_S3_ENDPOINT_URL = os.getenv('AWS_S3_ENDPOINT_URL')
 AWS_ACCESS_KEY_ID = os.getenv('AWS_S3_ACCESS_KEY_ID')
 AWS_SECRET_ACCESS_KEY = os.getenv('AWS_S3_SECRET_ACCESS_KEY')
 AWS_S3_CUSTOM_DOMAIN=os.getenv('AWS_S3_CUSTOM_DOMAIN')
+
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -159,3 +162,10 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media/')
+
+
+cloudinary.config( 
+  cloud_name = os.getenv('CLOUDINARY_CLOUD_NAME'),
+  api_key = os.getenv('CLOUDINARY_API_KEY'),
+  api_secret = os.getenv('CLOUDINARY_API_SECRET')
+)
