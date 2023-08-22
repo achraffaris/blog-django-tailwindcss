@@ -1,5 +1,3 @@
-# blog-django-tailwindcss
-
 # Project Installation and Setup Guide
 
 This guide will walk you through the process of installing the required dependencies and running the project on your local machine.
